@@ -19,8 +19,6 @@ class PadmaSliderRevolution extends PadmaBlockAPI {
 	}
 
 	function content($block) {
-
-		debug($block);
 		
 		$alias = parent::get_setting($block, 'alias', '');		
 		echo do_shortcode('[rev_slider alias="'.$alias.'"]');
