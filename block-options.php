@@ -2,43 +2,64 @@
 
 class PadmaSliderRevolutionOptions extends PadmaBlockOptionsAPI {
 
-	public $tabs = array(
-		'general' => 'General'
-	);
-	
-	public $sets = array(
-		
-	);
+	public $tabs;
+	public $sets;
+	public $inputs;
 
-	public $inputs = array(
-		'general' => array(
-			'alias' => array(
-				'type' => 'select',
-				'name' => 'alias',
-				'label' => 'Select Slider',
-				'options' => 'get_sliders()',
-				'tooltip' => '',
-			),
-		)
-	);
-	
-	function get_sliders() {
+	function __construct($block_type_object){
 
-		
-		$rev_slider = new RevSlider();
+		parent::__construct($block_type_object);
 
-		$slider = array(
-			'0' => 'Select a slider'
+		$this->tabs = array(
+			'general' => 'General'
 		);
 
-		if( $data = $rev_slider->getAllSliderAliases()){
+		$this->sets = array(
+
+		);
+
+		$this->inputs = array(
+			'general' => array(
+				'alias' => array(
+					'type' => 'select',
+					'name' => 'alias',
+					'label' => 'Select Slider',
+					'options' => 'get_slides()',
+					'tooltip' => '',
+				),
+			)
+		);
+
+	}
+
+	public function modify_arguments($args = false) {
+	}
+	
+	public function get_slides() {
+
+
+		$slider = new RevSlider();		
+		$sliders = array('no-slide' => 'Select an slider');		
+
+		if( method_exists('RevSlider', 'getAllSliderForAdminMenu') ){
 			
-			foreach($data as $key => $alias){
-				$slider[$alias] = $alias;
+			$data = $slider->getAllSliderForAdminMenu();
+			foreach ($data as $key => $params) {
+				$sliders[ $params['alias'] ] = $params['title'];
 			}
 
-		}
+		}elseif( method_exists('RevSlider', 'get_slider_for_admin_menu') ){
+			
+			$data = $slider->get_slider_for_admin_menu();
+			foreach ($data as $key => $params) {
+				$sliders[ $params['alias'] ] = $params['title'];
+			}
 		
-		return $slider;
+		}else{			
+			return;
+		}
+
+
+		return $sliders;
 	}
 }

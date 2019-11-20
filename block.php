@@ -2,10 +2,20 @@
 
 class PadmaSliderRevolution extends PadmaBlockAPI {
 
-    public $id 				= 'slider-revolution';    
-    public $name 			= 'Slider Revolution';
-    public $options_class 	= 'PadmaSliderRevolutionOptions';
-    public $categories 		= array('content','slider', 'media');
+    public $id;
+    public $name;
+    public $options_class;
+    public $categories;
+
+
+    public function __construct(){
+
+    	$this->id 				= 'slider-revolution';    
+	    $this->name 			= 'Slider Revolution';
+	    $this->options_class 	= 'PadmaSliderRevolutionOptions';
+	    $this->categories 		= array('content','slider', 'media');
+
+    }
     
     public function init() {
 
@@ -19,10 +29,16 @@ class PadmaSliderRevolution extends PadmaBlockAPI {
 	}
 
 	function content($block) {
-		
+				
 		$alias = parent::get_setting($block, 'alias', '');		
-		echo do_shortcode('[rev_slider alias="'.$alias.'"]');
+		echo do_shortcode('[rev_slider alias="'.$alias.'"][/rev_slider]');
 		
+	}
+
+	public static function dynamic_css($block_id, $block = false) {
+		$css = '#block-' . $block['id'] . ' rs-fullwidth-wrap { position: inherit; }';
+		$css .= '#block-' . $block['id'] . ' rs-module-wrap { position: inherit; }';
+		return $css;
 	}
 	
 }
