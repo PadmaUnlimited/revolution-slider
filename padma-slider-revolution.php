@@ -29,11 +29,23 @@ add_action('after_setup_theme', function(){
 	$class_file = __DIR__ . '/blocks.php';
 	$icons = __DIR__;
 
-	return padma_register_block(
+	if(function_exists('padma_register_block_complex')){
+
+		return padma_register_block_complex(
 			$class,
 			$block_type_url,
 			$class_file,
 			$icons
 		);
+
+	}else{
+		
+		return padma_register_block(
+			$class,
+			$block_type_url,
+		);
+
+	}
+
 
 });
