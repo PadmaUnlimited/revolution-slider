@@ -3,7 +3,7 @@
 Plugin Name: Padma Revolution Slider
 Plugin URI: https://www.padmaunlimited.com/plugins/shortcode-block
 Description: Padma Revolution Slider Compatibility Block
-Version: 1.0.3
+Version: 1.0.4
 Author: Padma Unlimited
 Author URI: https://www.padmaunlimited.com/
 License: GNU GPL v2
@@ -39,10 +39,10 @@ add_action('after_setup_theme', function(){
 		);
 
 	}else{
-		
+
 		return padma_register_block(
 			$class,
-			$block_type_url,
+			$block_type_url
 		);
 
 	}
